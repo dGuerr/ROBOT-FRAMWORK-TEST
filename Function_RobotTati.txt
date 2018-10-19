@@ -1,0 +1,38 @@
+*** Settings ***
+Library           Selenium2Library
+Library           String
+Library           Collections
+*** Keywords ***
+
+PrenomAleatoire  #creer un prenom aleatoire. sortie : prenom aleatoire
+    @{femaleNames}=    Create List    ABDONIE    ABDONISE    ABELARDE    ABELIE    ABELINE
+    ...    ABELLA    ABELLE    ABIGAELLE    ABIGAIL    ADELAIDE    ADELAIDE
+    ...    ADELE    ADELIA    ADELIE    ADELINE    ADELPHINE    ADRIANNE
+    ...    ADRIENNE    AMILIE    AMILIENNE    AGATHE    AGLAE    AGNES
+   
+   
+    ${numberFemaleNames}=    Get Length    ${femaleNames}
+    ${numberFemaleNames}=    Run Keyword    Evaluate    ${numberFemaleNames}-1
+    ${temp}=    Set Variable    random.randint(0, ${numberFemaleNames})
+    ${index}=    Evaluate    ${temp}    modules=random,sys
+    ${randFemaleName}=    Get From List    ${femaleNames}    ${index}
+    [Return]    ${randFemaleName}
+    
+ NomAleatoire  #creer un nom aleatoire. sortie : nom aleatoire
+    @{Names}=    Create List    MARTIN    BERNARD    ROUX    THOMAS    PETIT
+    ...    DURAND    MICHEL    ROBERT    RICHARD    SIMON    MOREAU
+    ...    DUBOIS    BLANC    LAURENT    GIRARD    BERTRAND    GARNIER
+   ${numberNames}=    Get Length    ${Names}
+    ${numberNames}=    Run Keyword    Evaluate    ${numberNames}-1
+    ${temp}=    Set Variable    random.randint(0, ${numberNames})
+    ${index}=    Evaluate    ${temp}    modules=random,sys
+    ${randName}=    Get From List    ${Names}    ${index}
+    [Return]    ${randName}
+    
+ AdressmailAleatoire  #creer une adresse mail aleatoire
+ 
+  [Arguments]  ${Names}  ${femaleNames}
+  ${adressemail} =  Catenate  ${Names}.${femaleNames}@hotmail.fr
+  
+  [Return]  ${adressemail}
+  

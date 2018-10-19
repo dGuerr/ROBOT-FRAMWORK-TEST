@@ -1,0 +1,76 @@
+
+
+*** Settings ***
+
+Library  Selenium2Library
+Library   String
+Resource   Function.txt
+
+*** Variables ***
+
+${URL}         https://www.tati.fr/
+
+${BROWSER}      chrome
+
+${my_link}      '/newsletter.php'
+
+
+#${adresse_mail}  ${Nom}@hotmail.fr
+
+#${confirmation_mail}  ${Nom}@hotmail.fr
+
+${jour}  14
+
+${mois}  12
+
+${annee}  1995
+
+*** Test Cases ***
+
+Se connecter a la page d'accueil
+
+  
+    Open browser    ${URL}          ${BROWSER}     ${my_link}
+    
+Page d'accueil
+    
+    #Click Link   href=https://www.tati.fr/newsletter.php
+    
+   Go To    https://www.tati.fr/newsletter.php
+   
+  
+Page Newsletter
+    
+    ${Nom}=  NomAleatoire
+
+    ${Prenom}=   PrenomAleatoire
+    
+    ${adresse_mail}=   AdressmailAleatoire  ${Nom}   ${Prenom} 
+
+   ${confirmation_mail} =    AdressmailAleatoire  ${Nom}   ${Prenom} 
+    
+    
+   Click Element   xpath=//span[@id='inputnewsletterSexeM']  
+    
+   Input text  xpath=//input[@id='newsletterNom']   ${Nom} 
+   
+   Input text  xpath=//input[@id='newsletterPrenom']  ${Prenom}  
+   
+   sleep  5
+   
+   Select From List by Value  xpath=//select[@id='newsletterDatenaisJ']    ${jour}
+   
+   Select From List by Value  xpath=//select[@id='newsletterDatenaisM']    ${mois}
+   
+   Select From List by Value  xpath=//select[@id='newsletterDatenaisA']    ${annee}
+   
+   Input text  xpath=//input[@id='newsletterMail']  ${adresse_mail}  
+   
+   Input text  xpath=//input[@id='newsletterMailv']  ${confirmation_mail}
+   
+   Click Element  xpath=//a[@id='btn_news']  
+   
+   
+   
+   
+ 
